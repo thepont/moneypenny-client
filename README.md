@@ -9,5 +9,5 @@ Moneypenny acts as an authentication service that offers multiple authentication
 
 Other services in the architecture should also know the shared secret allowing the token to be passed around in API calls to provide user information related to the request.
 
-This project connects to the [moneypenny server](moneypenny)
+This project connects to the [moneypenny server](https://github.com/blueflag/moneypenny)
 
