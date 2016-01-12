@@ -1,1 +1,1 @@
-module.exports = require('app/moneypenny-client/index.js');
+module.exports = require('./app/moneypenny-client/index.js');

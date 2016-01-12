@@ -17,7 +17,7 @@ var DEFAULT_SERVER_PORT = 443;
 
 
 
-var userFromJwt = function(jwtSecret){ 
+var userFromJwt = function(jwtSecret){
 	return function(token, callback){
 		jwt.verify(token, jwtSecret, function(err, user){
 			user.token = token;
@@ -33,15 +33,15 @@ var userFromJwt = function(jwtSecret){
 *       * tokenUrl - URL on the remote autnetication server where this server requests token
 * 		* providerName - name of the provider, unimportant only used internally
 * 		* providerHost - web accessable host name of the authentication server.
-* 		* 
+* 		*
  */
 
 module.exports = function(options){
-	
+
 	// Secret for JWTs
-	var jwtSecret = setOptionOrError('jwtSecret'); 
+	var jwtSecret = setOptionOrError('jwtSecret');
 	// Authentication Server Details
-	var providerHost = setOptionOrError('providerHost'); 
+	var providerHost = setOptionOrError('providerHost');
 	var providerPort = setOptionOrDefault('providerPort',DEFAULT_PROVIDER_PORT);
 	var providerName = setOptionOrDefault('providerName',DEFAULT_PROVIDER_NAME);
 	// Service external details
@@ -57,29 +57,29 @@ module.exports = function(options){
 
 	//APIKeyStrategy and extract users from JWT.
 	var apiKeyStrategy = new LocalAPIKeyStrategy(userFromJwt(jwtSecret));
-	
+
 	var apiKeyField = apiKeyStrategy._apiKeyField;
 	var apiKeyHeaderField = apiKeyStrategy._apiKeyHeader;
-	
+
 	function setOptionOrError(name){
 		if ( !options[name] ){
 			throw Error("option " + name + " not set, unable to setup authentication");
 		}
 		return options[name];
 	}
-	
+
 	function setOptionOrDefault(name, defaultOption){
 		return options[name] || defaultOption;
 	}
-	
-	
+
+
 	var setupRoutes = function(app){
-		app.get(callbackURI, 
+		app.get(callbackURI,
 			passport.authenticate(providerName, {failureRedirect: loginUri}),
 				function(req, res, next){
 					return res.json(req.user);
 				});
-				
+
 		app.get(loginUri, passport.authenticate(providerName));
 	}
 
@@ -111,8 +111,8 @@ module.exports = function(options){
 	 *
 	 * Use passport APIKeyStrategy and extract users from JWT.
 	 */
-	passport.use(apiKeyStrategy);		
-	
+	passport.use(apiKeyStrategy);
+
 	/*
 	 * Seralize user, save token to session
 	 */
@@ -123,12 +123,12 @@ module.exports = function(options){
 			done(err);
 		}
 	});
-	
+
 	/**
 	 * Deserialize user by extracting it from JWT.
 	 */
-	passport.deserializeUser(userFromJwt(jwtSecret));	
-	
+	passport.deserializeUser(userFromJwt(jwtSecret));
+
 	this.checkAuthenticated = function(req, res, next){
 		if(req.isAuthenticated()){
 			return next();
@@ -141,11 +141,10 @@ module.exports = function(options){
 			}
 		}
 	}
-	
+
 	this.initialize = function(app){
 		app.use(passport.initialize());
 		app.use(passport.session());
 		setupRoutes(app);
 	}
 }
-
