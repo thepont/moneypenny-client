@@ -1,13 +1,30 @@
-![moneypenny-client](https://upload.wikimedia.org/wikipedia/en/9/9b/Miss_Moneypenny_by_Lois_Maxwell.jpg)
 
-# moneypenny - Authentication Client
+#Options
+###JWT
+`jwtSecret` __required__ secret used to decode and encode JWT.
 
-[![Circle CI](https://circleci.com/gh/blueflag/moneypenny/tree/master.svg?style=shield&circle-token=0627ef84b056dbf221c6b6a5025c101cdfbc8991)](https://circleci.com/gh/blueflag/moneypenny-client/tree/master) 
-[![Coverage Status](https://coveralls.io/repos/blueflag/moneypenny/badge.svg?branch=test&service=github&t=KTAhQi)](https://coveralls.io/github/blueflag/moneypenny-client?branch=master)
+###Authentication Server Details
+`providerHost` __required__ web accessable host name for the location of the authentication server.
 
-Moneypenny acts as an authentication service that offers multiple authentication strategies to a backend service and sends a [JSON web token](http://jwt.io/)(JWT) encripted using a shared secret as a response.
+`providerPort` _default:443_ web accessable port for the location of the authentication server.
 
-Other services in the architecture should also know the shared secret allowing the token to be passed around in API calls to provide user information related to the request.
+`proviaderName` _default:moneypenny-server_ name given to the oAuth passport stratergy
 
-This project connects to the [moneypenny server](https://github.com/blueflag/moneypenny)
+###Service external details
+`serverHost` __required__ web accessable hostname of the service running the moneypennny-client
+
+`serverPort` _default:443_ web accessable port of the service running the moneypennny-client
+
+##oAuth Details
+`oAuthClientSecret` __required__ shared secret setup in the authentication service for the service
+
+`oAuthClientID` __required__ client id that corresponds to this service on the authentication service
+
+`authorizationURI` _default:/oauth2/authorization_ url on the authentication server where the authentication endpoint can be found.
+
+`tokenURI` _default:/oauth2/token_ uri that this server will use to get the token.
+
+`callbackURI` _default:/auth/provider/callback_ uri that will be added to this server using the `initialize()` method that will be used for the oAuth2 callback
+
+`loginUri` _default:/login_ uri that is used to login to the service, this will be added to this server using the `initalize()` method.
 
