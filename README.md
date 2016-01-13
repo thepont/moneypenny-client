@@ -1,4 +1,25 @@
 
+moneypenny-client provides the ability to autenticate users for an express js server using the moneypenny server.
+
+#Example
+
+```
+var express = require('express');
+var app = express();
+
+var AuthClient = require('moneypenny-client');
+var options = {
+  jwtSecret: 'top_secret_shared_secret',
+  providerHost: 'moneypenny-server-address',
+  serverHost: 'localhost',
+  oAuthClientSecret: 'another_top_secret_secret',
+  oAuthClientID: 'test_server'
+}
+var authClient = new AuthClient(options);
+authClient.initialize(app);
+app.use(authClient.checkAuthenticated)
+```
+
 #Options
 ###JWT
 `jwtSecret` __required__ secret used to decode and encode JWT.
