@@ -6,8 +6,8 @@ moneypenny-client provides the ability to autenticate users for an express js se
 ```
 var express = require('express');
 var app = express();
-
 var AuthClient = require('moneypenny-client');
+
 var options = {
   jwtSecret: 'top_secret_shared_secret',
   providerHost: 'moneypenny-server-address',
