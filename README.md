@@ -1,3 +1,6 @@
+[![Circle CI](https://circleci.com/gh/blueflag/moneypenny-client.svg?style=shield)](https://circleci.com/gh/blueflag/moneypenny-client)
+[![Coverage Status](https://coveralls.io/repos/github/blueflag/moneypenny-client/badge.svg?branch=master)](https://coveralls.io/github/blueflag/moneypenny-client?branch=master)
+
 
 moneypenny-client provides the ability to autenticate users for an express js server using the moneypenny server.
 
